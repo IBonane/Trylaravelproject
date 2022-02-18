@@ -146,6 +146,12 @@ class Controller extends BaseController
         return redirect("/dashboard/$id_user");
     }
 
+    public function showRemove($id)
+    {
+        $articleRemove = $this->repository->getArticleById($id);
+        return view('remove')->with('articleRemove', $articleRemove);
+    }
+
     public function remove($id)
     {
         if (!request()->session()->has('user')) 
@@ -156,6 +162,18 @@ class Controller extends BaseController
         $id_user = session()->get('user')['id'];
         $this->repository->removeArticles($id, $id_user);
 
+        return redirect("/dashboard/$id_user");
+    }
+
+    public function noRemove()
+    {
+        if (!request()->session()->has('user')) 
+        {
+            return redirect()->route('login');
+        }
+
+        $id_user = session()->get('user')['id'];
+        
         return redirect("/dashboard/$id_user");
     }
 }

@@ -13,32 +13,47 @@ use App\Http\Controllers\Controller;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//home
 Route::get('/', [Controller::class, 'home'])
         ->name('home');
 
+//login user
 Route::get('/login', [Controller::class, 'showLogin'])
         ->name('showlogin');
 
 Route::post('/login', [Controller::class, 'login'])
         ->name('login');
 
+//logout user
 Route::post('/logout', [Controller::class, 'logout'])
         ->name('logout');
 
+//Dashboard user
 Route::get('/dashboard/{id_user}', [Controller::class, 'dashboardUser'])->name('dashboard');
 
+//search articles
 Route::get('/search', [Controller::class, 'search'])
         ->name('search.page');
 
+//sow article details
 Route::get('/article/{id}', [Controller::class, 'detailArticle']);
+
+//create articles
 
 Route::get('/create', [Controller::class, 'createview'])->name('Showcreate');
 
 Route::post('/create', [Controller::class, 'create'])->name('create');
 
+//updatge articles
+
 Route::get('/update/{id}', [Controller::class, 'showUpdate']);
 
 Route::post('/update/{id}', [Controller::class, 'update']);
 
+//Remove articles or no
+
+Route::get('/showdelete/{id}', [Controller::class, 'showRemove']);
+
 Route::get('/delete/{id}', [Controller::class, 'remove']);
+
+Route::get('/nodelete', [Controller::class, 'noRemove'])->name('nodelete');

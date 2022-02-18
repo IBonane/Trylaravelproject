@@ -24,17 +24,11 @@
 @endsection
 
 @section('content')
-    <h1>Tableau de board</h1>
+    <p>Voulez vous supprimer vraimenet cet article ?</p>
     <div>
-        @foreach ($articlesUser as $articleUser)
             <h3>
-                {{ $articleUser->id }}- {{ $articleUser->name }} :  {{ $articleUser->price }} $ 
-                <a href = '/update/{{$articleUser->id}}' style="color:royalblue">Modifier</a>
-                <a href = '/showdelete/{{$articleUser->id}}' style="color:red">Supprimer</a>                                       
+                <a href = '{{route('nodelete')}}' style="color:royalblue">Non</a>
+                <a href = '/delete/{{$articleRemove[0]->id}}' style="color:red">Oui</a>                                       
             </h3>
-        @endforeach
-    </div>
-    <div>
-        <a href="{{route('Showcreate')}}"><button>Ajouter article</button></a>
     </div>
 @endsection
