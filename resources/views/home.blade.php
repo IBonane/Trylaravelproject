@@ -21,6 +21,9 @@
 
     @else
         <li>
+            <button style="background-color:none; border: none; margin-right:20px">
+                <a style="text-decoration: none; color:darkblue;" href="{{route('create_user')}}">Inscription</a>
+            </button>
             <button style="background-color:none; border: none">
                 <a style="text-decoration: none; color:darkblue;" href="{{route('showlogin')}}">Connexion</a>
             </button>

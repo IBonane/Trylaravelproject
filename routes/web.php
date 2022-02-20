@@ -17,6 +17,19 @@ use App\Http\Controllers\Controller;
 Route::get('/', [Controller::class, 'home'])
         ->name('home');
 
+//Create User
+Route::get('/create/user', [Controller::class, 'showCreateUser'])
+        ->name('create_user');
+
+Route::post('/create/user', [Controller::class, 'CreateUser'])
+        ->name('user.post');
+
+Route::get('/confirmation_code', [Controller::class, 'showConfirmation'])
+        ->name('confirmation');
+
+Route::post('/confirmation_code', [Controller::class, 'confirmationCode'])
+        ->name('code.post');
+
 //login user
 Route::get('/login', [Controller::class, 'showLogin'])
         ->name('showlogin');

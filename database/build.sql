@@ -3,10 +3,12 @@ DROP TABLE IF EXISTS Users;
 
 CREATE TABLE Users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pseudo VARCHAR(255) UNIQUE NOT NULL,
     lastname VARCHAR(255),
     firstname VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL,
-    passwordHash VARCHAR(255) NOT NULL
+    passwordHash VARCHAR(255) NOT NULL,
+    token VARCHAR(255) 
 );
 
 CREATE TABLE Articles(
