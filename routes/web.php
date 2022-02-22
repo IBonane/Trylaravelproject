@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
-
+use App\Mail\ConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,13 @@ use App\Http\Controllers\Controller;
 //home
 Route::get('/', [Controller::class, 'home'])
         ->name('home');
+
+// //email
+// Route::get('/email', function(){
+
+//         Mail::to('bonanedjimba@gmail.com')->send(new ConfirmationMail());
+//         return new ConfirmationMail();
+// });
 
 //Create User
 Route::get('/create/user', [Controller::class, 'showCreateUser'])

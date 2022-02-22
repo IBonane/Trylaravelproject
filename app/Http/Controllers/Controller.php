@@ -11,7 +11,8 @@ use Exception;
 use App\Repositories\Repository;
 use Illuminate\Support\Str;
 
-use Mail;
+use App\Mail\ConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class Controller extends BaseController
@@ -41,16 +42,6 @@ class Controller extends BaseController
         return view('confirmation_code');
     }
 
-    // public function html_email($data) {
-        
-    //     Mail::send('mail', $data, function($message) {
-    //        $message->to($email, 'code de confirmation')->subject
-    //           ('Laravel HTML Testing Mail');
-    //        $message->from('elsimple229@gmail.com','site cuisine');
-    //     });
-    //     echo "Mail envoyé !";
-    // }
-
     public function CreateUser()
     {
         $rules = [
@@ -77,7 +68,7 @@ class Controller extends BaseController
 
         $token = bcrypt(Str::random(16));
         
-       // $this->html_email([$token], $validatedData['email']);
+        Mail::to($validatedData['email'])->send(new ConfirmationMail([$token]));
 
         try {
             
@@ -95,7 +86,7 @@ class Controller extends BaseController
             return redirect()->route('home');
         }
 
-        return redirect()->route('confirmation')->with('success', $token);
+        return redirect()->route('confirmation');
 
     }
 

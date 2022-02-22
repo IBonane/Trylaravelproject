@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         touch('database/database.sqlite');
 
         $this->repository = new Repository();
-       // $token = bcrypt(Str::random(16));
+    //    $token = bcrypt(Str::random(16));
         $this->repository->createDatabase();
         // $this->repository->addUser('bi', 'BONANE', 'Inoussa', 'bonanedjimba@gmail.com', 'Meine1001', $token);
         // $this->repository->addUser('kj', 'KONE', 'Jean', 'jeankone@gmail.com', 'Meine0110', bcrypt(Str::random(16)));

@@ -8,9 +8,9 @@
     <h1>Validation de compte</h1>
     <div>
         <p style="color: orangered">veuillez saisie dans le champ token le code token que vous avez reçu par mail après votre inscription</p>
-        @if ($message = Session::get('success'))
+        {{-- @if ($message = Session::get('success'))
             {{$message}}
-        @endif
+        @endif --}}
         <form method="POST" action="{{route('code.post')}}">
             @csrf
             @if ($errors->any())
