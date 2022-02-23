@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 use App\Mail\ConfirmationMail;
 use Illuminate\Support\Facades\Mail;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 
 class Controller extends BaseController
 {
@@ -195,6 +198,28 @@ class Controller extends BaseController
         $article = $this->repository->getArticleById($id);
 
         return view('detail_article')->with('article', $article);
+    }
+
+    public function downloadArticle($id)
+    { 
+        $options = new Options();
+        $options->set('defaultFont', 'Courier');
+        $options->isHtml5ParserEnabled(true);
+        $options->setIsRemoteEnabled(true);
+        $dompdf = new Dompdf($options);
+        $articles = $this->repository->getArticles();
+
+        $article = $this->repository->getArticleById($id);
+        $dompdf->loadHtml(view('topdf')->with('article', $article));
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('recette.pdf');
     }
 
     public function createview()

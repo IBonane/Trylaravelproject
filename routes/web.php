@@ -56,8 +56,11 @@ Route::get('/dashboard/{id_user}', [Controller::class, 'dashboardUser'])->name('
 Route::get('/search', [Controller::class, 'search'])
         ->name('search.page');
 
-//sow article details
+//show article details
 Route::get('/article/{id}', [Controller::class, 'detailArticle']);
+
+//download article detail in pdf
+Route::get('/article/{id}/download', [Controller::class, 'downloadArticle']);
 
 //create articles
 
