@@ -16,5 +16,6 @@ CREATE TABLE Articles(
     name VARCHAR(255) NOT NULL,
     price REAL NOT NULL,
     id_user INTEGER NOT NULL,
+    path_image VARCHAR(255),
     FOREIGN KEY(id_user) REFERENCES Users(id)
 );

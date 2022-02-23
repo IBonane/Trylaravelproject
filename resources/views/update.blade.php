@@ -7,13 +7,18 @@
 @section('content')
     <h1>Modifier article</h1>
     <div>
-        <form method="POST" action='/update/{{$articleFind[0]->id}}'>
+        <form method="POST" action='/update/{{$articleFind[0]->id}}' enctype="multipart/form-data">
             @csrf
             <label for="name">Nom</label>
             <input type="text" placeholder="Nom.." name="name" value="{{$articleFind[0]->name}}" required>
             <br><br>
+
             <label for="price">Prix</label>
             <input type="text" placeholder="Prix.." name="price" value="{{$articleFind[0]->price}}" required>
+            <br><br>
+
+            <label for="image_article">image</label>
+            <input type="file" id="image_article" name="image_article" accept="image/png, image/jpeg">
             <br><br>
             <button type="submit">Modifier</button>
         </form>

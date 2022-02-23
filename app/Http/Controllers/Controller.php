@@ -209,11 +209,17 @@ class Controller extends BaseController
             return redirect()->route('login');
         }
 
+        //images
+        //create unique filename image
+        $filename = time().'.'.request()->image_article->extension();
+        //put image into storage folder and get path
+        $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+
         $id_user = session()->get('user')['id'];
         $name = request()->input('name');
         $price = request()->input('price');
 
-        $this->repository->addArticle($name, $price, $id_user);
+        $this->repository->addArticle($name, $price, $id_user, $path_image);
         
         return redirect("/dashboard/$id_user");
     }
@@ -232,11 +238,17 @@ class Controller extends BaseController
             return redirect()->route('login');
         }
 
+          //images
+        //create unique filename image
+        $filename = time().'.'.request()->image_article->extension();
+        //put image into storage folder and get path
+        $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+
         $id_user = session()->get('user')['id'];
         $name = request()->input('name');
         $price = request()->input('price');
 
-        $this->repository->update($id, $name, $price, $id_user);
+        $this->repository->update($id, $name, $price, $id_user, $path_image);
 
         return redirect("/dashboard/$id_user");
     }
