@@ -204,13 +204,12 @@ class Controller extends BaseController
     { 
         $options = new Options();
         $options->set('defaultFont', 'Courier');
-        $options->isHtml5ParserEnabled(true);
         $options->setIsRemoteEnabled(true);
         $dompdf = new Dompdf($options);
         $articles = $this->repository->getArticles();
 
         $article = $this->repository->getArticleById($id);
-        $dompdf->loadHtml(view('topdf')->with('article', $article));
+        $dompdf->loadHtml(view('topdf', compact('article')));
 
         // (Optional) Setup the paper size and orientation
         $dompdf->setPaper('A4', 'landscape');

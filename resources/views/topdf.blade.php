@@ -12,7 +12,7 @@
         <h3>
             {{ $article[0]->id }}- {{ $article[0]->name }} :  {{ $article[0]->price }} $            
         </h3>
-        <img style="height: 180px; width: 180px" src="{{ Storage::url($article[0]->path_image) }}" alt="image article">
+        <img style="height: 180px; width: 180px" src="{{ public_path('storage/'.$article[0]->path_image) }}" alt="image article">
     </div>
 </body>
 </html>
