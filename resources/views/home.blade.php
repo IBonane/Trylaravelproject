@@ -41,12 +41,17 @@
             <button type="submit">ok</button>
         </form>
     </div>
+    @foreach ($categories as $categorie)
     <div>
+        <h1>{{$categorie->nameCat}}</h1>
         @foreach ($articles as $article)
+            @if ($categorie->nameCat ==  $article->id_cat)
             <h3>
                 {{ $article->id }}- {{ $article->name }} :  {{ $article->price }} $ 
                 <a href = '/article/{{$article->id}}' style="color:orange">Detail</a>                                     
-            </h3>
+            </h3>  
+            @endif
         @endforeach
     </div>
+    @endforeach
 @endsection

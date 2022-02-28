@@ -74,15 +74,25 @@ class Repository
         return ['id'=>$rowUser->id, 'email'=>$rowUser->email];
     }
 
-
+    //Article categories
+    function getArticleCategories(): array
+    {
+       return DB::table('categories')
+                    ->get()
+                    ->toArray();
+    }
 
     //Create Articles User
 
-    function addArticle(string $name, float $price, int $id_user, string $path_image): int
+    function addArticle(string $name, float $price, string $id_cat, int $id_user, string $path_image): int
     {
 
         return DB::table('Articles')
-                        ->insertGetId(['name'=>$name, 'price'=>$price, 'id_user'=>$id_user, 'path_image'=>$path_image]);   
+                        ->insertGetId(['name'=>$name, 
+                                        'price'=>$price, 
+                                        'id_cat'=>$id_cat,
+                                        'id_user'=>$id_user, 
+                                        'path_image'=>$path_image]);   
     }
 
     function getArticles(): array
@@ -109,12 +119,12 @@ class Repository
                         ->toArray();
     }
 
-    function update($id, $name, $price, $id_user, $path_image): void 
+    function update($id, $name, $price, $id_cat, $id_user, $path_image): void 
     {
         DB::table('Articles')
                         ->where('id', $id)
                         ->where('id_user', $id_user)
-                        ->update(['name'=>$name, 'price'=>$price, 'path_image'=>$path_image]);
+                        ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'path_image'=>$path_image]);
     }
 
     function searchArticles(string $query): array

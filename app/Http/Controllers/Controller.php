@@ -30,8 +30,9 @@ class Controller extends BaseController
     public function home()
     {
         $articles = $this->repository->getArticles();
+        $categories = $this->repository->getArticleCategories();
         
-       return view('home', ['articles'=>$articles]);
+       return view('home', ['articles'=>$articles])->with('categories', $categories);
     }
 
     public function showCreateUser()
@@ -223,7 +224,8 @@ class Controller extends BaseController
 
     public function createview()
     {
-        return view('create');
+        $categories = $this->repository->getArticleCategories();
+        return view('create')->with('categories', $categories);
     }
 
     public function create()
@@ -243,7 +245,9 @@ class Controller extends BaseController
         $name = request()->input('name');
         $price = request()->input('price');
 
-        $this->repository->addArticle($name, $price, $id_user, $path_image);
+        $categorieValue = request()->input('categorie');
+
+        $this->repository->addArticle($name, $price, $categorieValue, $id_user, $path_image);
         
         return redirect("/dashboard/$id_user");
     }
@@ -251,8 +255,10 @@ class Controller extends BaseController
     public function showUpdate($id)
     {
         $articleFind = $this->repository->getArticleById($id);
+        
+        $categories = $this->repository->getArticleCategories();
 
-        return view('update')->with('articleFind', $articleFind);
+        return view('update', ['categories'=>$categories])->with('articleFind', $articleFind);
     }
 
     public function update($id)
@@ -271,8 +277,9 @@ class Controller extends BaseController
         $id_user = session()->get('user')['id'];
         $name = request()->input('name');
         $price = request()->input('price');
+        $categorieValue = request()->input('categorie');
 
-        $this->repository->update($id, $name, $price, $id_user, $path_image);
+        $this->repository->update($id, $name, $price, $categorieValue, $id_user, $path_image);
 
         return redirect("/dashboard/$id_user");
     }

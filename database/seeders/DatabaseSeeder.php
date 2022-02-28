@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
     //    $token = bcrypt(Str::random(16));
         $this->repository->createDatabase();
         // $this->repository->addUser('bi', 'BONANE', 'Inoussa', 'bonanedjimba@gmail.com', 'Meine1001', $token);
-        // $this->repository->addUser('kj', 'KONE', 'Jean', 'jeankone@gmail.com', 'Meine0110', bcrypt(Str::random(16)));
+        $this->repository->addUser('kj', 'KONE', 'Jean', 'jeankone@gmail.com', 'Meine0110', bcrypt(Str::random(16)));
         
         // $this->repository->addArticle("Article", 15.99, 1);
         // $this->repository->addArticle("PC", 1515.16, 2);
