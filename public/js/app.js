@@ -2065,16 +2065,22 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var addInput = document.querySelector('#plus');
 var delInput = document.querySelector('#moins');
 delInput.hidden = true;
-var addInputInDiv = document.getElementById('ajout');
-var idName = 1;
+var addInputInDiv = document.querySelector('#ajout');
+var divAdd = ""; // let idName = addInputInDiv.children.length;
+// if(idName > 1){
+//     idName = addInputInDiv.getElementsByTagName('div').length;
+// }
+
+var idName = addInputInDiv.getElementsByTagName('div').length;
 addInput.addEventListener("click", plus);
-delInput.addEventListener("click", moins);
+delInput.addEventListener("click", moins); // console.log(idName);
 
 function plus() {
-  idName++;
+  idName++; // console.log(idName);
+
   if (idName > 1) delInput.hidden = false;
-  var divAdd = '<div id="' + idName + '"><label for="name">Nom ' + idName + '</label>\
-                    <input type="text" name="row[' + (idName - 1) + ']"></div>';
+  divAdd = '<div id="' + idName + '"><label for="row[' + idName + ']">Nom ' + idName + '</label>\
+                    <input type="text" name="row[' + idName + ']"></div><br>';
   addInputInDiv.innerHTML += divAdd;
 }
 

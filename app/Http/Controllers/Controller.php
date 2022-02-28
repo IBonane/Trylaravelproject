@@ -250,7 +250,7 @@ class Controller extends BaseController
         $price = request()->input('price');
         $array = request()->input('row');
 
-        
+        // dd($array);
 
         $categorieValue = request()->input('categorie');
         // explode( ',', $array )

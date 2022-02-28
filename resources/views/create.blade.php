@@ -33,8 +33,9 @@
                         <label for="row[0]">Nom 1</label>
                         <input type="text" name="row[0]">
                     </div>
-                    <br><br>
+                    <br>
                 </div>
+                <br>
                 <div>
                     <button type="button" id="plus">plus</button>
                     <button type="button" id="moins">moins</button>
