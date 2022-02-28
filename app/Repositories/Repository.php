@@ -84,7 +84,7 @@ class Repository
 
     //Create Articles User
 
-    function addArticle(string $name, float $price, string $id_cat, int $id_user, string $path_image): int
+    function addArticle(string $name, float $price, string $id_cat, int $id_user, string $etape_desc, string $path_image): int
     {
 
         return DB::table('Articles')
@@ -92,6 +92,7 @@ class Repository
                                         'price'=>$price, 
                                         'id_cat'=>$id_cat,
                                         'id_user'=>$id_user, 
+                                        'etape_desc'=>$etape_desc,
                                         'path_image'=>$path_image]);   
     }
 
@@ -101,7 +102,7 @@ class Repository
                         ->orderBy('id')
                         ->get()
                         ->toArray();   
-    }
+    }                                                           
 
     function getArticleById($id): array
     {       
@@ -125,7 +126,7 @@ class Repository
                         ->where('id', $id)
                         ->where('id_user', $id_user)
                         ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'path_image'=>$path_image]);
-    }
+    }                                                                                                                       
 
     function searchArticles(string $query): array
     {
@@ -144,5 +145,30 @@ class Repository
                         ->delete();
     }
 
-    //Create User
+    //Create articles description 
+    // function addEtape(int $id_article, array $etape_desc): int
+    // {
+
+    //     return DB::table('Etapes')
+    //                     ->insertGetId(['id_article'=>$id_article, 
+    //                                     'etape_desc'=>$etape_desc]);   
+    // }
+
+    // function getEtapesById($id_article): array
+    // {
+    //     return DB::table('Etapes')
+    //                     ->where('id_article', $id_article) 
+    //                     ->orderBy('id')
+    //                     ->get()
+    //                     ->toArray();   
+    // }    
+
+    // function updateEtapes($id, $id_article, $etape_desc): void 
+    // {
+    //     DB::table('Etapes')
+    //                     ->where('id', $id)
+    //                     ->where('id_article', $id_article)
+    //                     ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'path_image'=>$path_image]);
+    // }                                                                                                                       
+ 
 }

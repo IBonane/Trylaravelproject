@@ -12,5 +12,12 @@
         </h3>
         <img src="{{ Storage::url($article[0]->path_image) }}" alt="image article">
         <a href="/article/{{$article[0]->id}}/download">Télécharger la recette en pdf</a>
+        <h3>Description</h3>
+        <ol>
+            @foreach ($etapes as $etape)
+                <li>{{$etape}}</li>
+            @endforeach
+        </ol>
+
     </div>
 @endsection

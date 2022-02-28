@@ -25,6 +25,24 @@
             </select>
             <br><br>
 
+            <div>
+
+            </div>
+                <div id="ajout">
+                    <div id="1">
+                        <label for="row[0]">Nom 1</label>
+                        <input type="text" name="row[0]">
+                    </div>
+                    <br><br>
+                </div>
+                <div>
+                    <button type="button" id="plus">plus</button>
+                    <button type="button" id="moins">moins</button>
+                </div>
+            </div>
+            
+            <br><br>
+
             <label for="image_article">image</label>
             <input type="file" id="image_article" name="image_article" accept="image/png, image/jpeg">
             <br><br>
@@ -32,4 +50,7 @@
             <button type="submit">créer</button>
         </form>
     </div>
+@endsection
+@section('script')
+    <script  src="{{ asset('js/app.js') }}"></script>    
 @endsection

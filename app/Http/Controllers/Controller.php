@@ -197,8 +197,9 @@ class Controller extends BaseController
     public function detailArticle($id)
     {
         $article = $this->repository->getArticleById($id);
+        $etapes = explode( ',', $article[0]->etape_desc);
 
-        return view('detail_article')->with('article', $article);
+        return view('detail_article', ['etapes'=>$etapes])->with('article', $article);
     }
 
     public function downloadArticle($id)
@@ -235,19 +236,25 @@ class Controller extends BaseController
             return redirect()->route('login');
         }
 
+        // dd(request()->all());
+        //    $array = request()->input('row');
+        //    dd(count($array));
         //images
         //create unique filename image
         $filename = time().'.'.request()->image_article->extension();
         //put image into storage folder and get path
         $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
-
+        
         $id_user = session()->get('user')['id'];
         $name = request()->input('name');
         $price = request()->input('price');
+        $array = request()->input('row');
+
+        
 
         $categorieValue = request()->input('categorie');
-
-        $this->repository->addArticle($name, $price, $categorieValue, $id_user, $path_image);
+        // explode( ',', $array )
+        $this->repository->addArticle($name, $price, $categorieValue, $id_user, implode(",", $array), $path_image);
         
         return redirect("/dashboard/$id_user");
     }

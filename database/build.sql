@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Etapes;
 DROP TABLE IF EXISTS Articles;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Categories;
@@ -22,10 +23,18 @@ CREATE TABLE Articles(
     price REAL NOT NULL,
     id_cat VARCHAR(255) NOT NULL,
     id_user VARCHAR(255) NOT NULL,
+    etape_desc TEXT NOT NULL,
     path_image VARCHAR(255),
     FOREIGN KEY(id_cat) REFERENCES Categories(nameCat),
     FOREIGN KEY(id_user) REFERENCES Users(id)
 );
+
+-- CREATE TABLE Etapes(
+--     id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     id_article INTEGER NOT NULL,
+--     etape_desc TEXT,
+--     FOREIGN KEY(id_article) REFERENCES Articles(id)
+-- );
 
 INSERT INTO Categories(nameCat)
     VALUES
