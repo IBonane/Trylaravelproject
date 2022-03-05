@@ -120,12 +120,12 @@ class Repository
                         ->toArray();
     }
 
-    function update($id, $name, $price, $id_cat, $id_user, $path_image): void 
+    function update($id, $name, $price, $id_cat, $id_user, $etape_desc, $path_image): void 
     {
         DB::table('Articles')
                         ->where('id', $id)
                         ->where('id_user', $id_user)
-                        ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'path_image'=>$path_image]);
+                        ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'etape_desc'=>$etape_desc, 'path_image'=>$path_image]);
     }                                                                                                                       
 
     function searchArticles(string $query): array

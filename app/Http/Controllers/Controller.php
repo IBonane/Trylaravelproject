@@ -22,6 +22,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /*----------------------Error d'affichage d'une seule valeur des input c'est : 
+    dans views on doit mettre : <input type="text" name="row[]"/> et dans controller : request()->input('row')--------------------------------------------------------*/
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
@@ -197,7 +200,9 @@ class Controller extends BaseController
     public function detailArticle($id)
     {
         $article = $this->repository->getArticleById($id);
-        $etapes = explode( ',', $article[0]->etape_desc);
+        $etapes = explode( '|', $article[0]->etape_desc);
+
+        //dd($article[0]->etape_desc);
 
         return view('detail_article', ['etapes'=>$etapes])->with('article', $article);
     }
@@ -250,11 +255,11 @@ class Controller extends BaseController
         $price = request()->input('price');
         $array = request()->input('row');
 
-        // dd($array);
+        //dd($array);
 
         $categorieValue = request()->input('categorie');
         // explode( ',', $array )
-        $this->repository->addArticle($name, $price, $categorieValue, $id_user, implode(",", $array), $path_image);
+        $this->repository->addArticle($name, $price, $categorieValue, $id_user, implode("|", $array), $path_image);
         
         return redirect("/dashboard/$id_user");
     }
@@ -262,34 +267,38 @@ class Controller extends BaseController
     public function showUpdate($id)
     {
         $articleFind = $this->repository->getArticleById($id);
+
+        $etapes = explode( ',', $articleFind[0]->etape_desc);
         
         $categories = $this->repository->getArticleCategories();
 
-        return view('update', ['categories'=>$categories])->with('articleFind', $articleFind);
+        return view('update', ['categories'=>$categories, 'etapes'=>$etapes])->with('articleFind', $articleFind);
     }
 
-    public function update($id)
-    {
-        if (!request()->session()->has('user')) 
-        {
-            return redirect()->route('login');
-        }
+    // public function update($id)
+    // {
+    //     if (!request()->session()->has('user')) 
+    //     {
+    //         return redirect()->route('login');
+    //     }
 
-          //images
-        //create unique filename image
-        $filename = time().'.'.request()->image_article->extension();
-        //put image into storage folder and get path
-        $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+    //       //images
+    //     //create unique filename image
+    //     $filename = time().'.'.request()->image_article->extension();
+    //     //put image into storage folder and get path
+    //     $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
 
-        $id_user = session()->get('user')['id'];
-        $name = request()->input('name');
-        $price = request()->input('price');
-        $categorieValue = request()->input('categorie');
+    //     $id_user = session()->get('user')['id'];
+    //     $name = request()->input('name');
+    //     $price = request()->input('price');
+    //     $categorieValue = request()->input('categorie');
+    //     $array = request()->input('row');
+    //     dd($array);
+        
+    //     $this->repository->update($id, $name, $price, $categorieValue, $id_user, implode(",", $array), $path_image);
 
-        $this->repository->update($id, $name, $price, $categorieValue, $id_user, $path_image);
-
-        return redirect("/dashboard/$id_user");
-    }
+    //     return redirect("/dashboard/$id_user");
+    // }
 
     public function showRemove($id)
     {

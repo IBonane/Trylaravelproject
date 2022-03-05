@@ -26,10 +26,31 @@
             </select>
             <br><br>
 
+            {{-- </div>
+                <div id="ajout">
+                    @for ($i = 0; $i < count($etapes); $i++)
+                    <div id="{{$i+1}}">
+                        <label for="row[{{$i}}]">Nom {{$i+1}}</label>
+                        <input type="text" name="row[{{$i}}]" value="{{$etapes[$i]}}">
+                    </div>
+                    <br>  
+                    @endfor
+                </div>
+                <br>
+                <div>
+                    <button type="button" id="plus">plus</button>
+                    <button type="button" id="moins">moins</button>
+                </div>
+            </div>
+            <br><br> --}}
+
             <label for="image_article">image</label>
             <input type="file" id="image_article" name="image_article" accept="image/png, image/jpeg">
             <br><br>
             <button type="submit">Modifier</button>
         </form>
     </div>
+@endsection
+@section('script')
+    <script  src="{{ asset('js/app.js') }}"></script>    
 @endsection

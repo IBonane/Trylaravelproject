@@ -27,6 +27,15 @@
 
             <div>
 
+            <div class="table-responsive">
+                <table id="contenuAjout">
+                    <tr id="name1">
+                        <td><input type="text" name="row[]"/></td>
+                        <td><button type="button" name="plus" id="plus">+</button></td>
+                    </tr>
+                </table>
+            </div>
+{{-- 
             </div>
                 <div id="ajout">
                     <div id="1">
@@ -40,7 +49,7 @@
                     <button type="button" id="plus">plus</button>
                     <button type="button" id="moins">moins</button>
                 </div>
-            </div>
+            </div> --}}
             
             <br><br>
 
