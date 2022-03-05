@@ -275,30 +275,30 @@ class Controller extends BaseController
         return view('update', ['categories'=>$categories, 'etapes'=>$etapes])->with('articleFind', $articleFind);
     }
 
-    // public function update($id)
-    // {
-    //     if (!request()->session()->has('user')) 
-    //     {
-    //         return redirect()->route('login');
-    //     }
+    public function update($id)
+    {
+        if (!request()->session()->has('user')) 
+        {
+            return redirect()->route('login');
+        }
 
-    //       //images
-    //     //create unique filename image
-    //     $filename = time().'.'.request()->image_article->extension();
-    //     //put image into storage folder and get path
-    //     $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+          //images
+        //create unique filename image
+        $filename = time().'.'.request()->image_article->extension();
+        //put image into storage folder and get path
+        $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
 
-    //     $id_user = session()->get('user')['id'];
-    //     $name = request()->input('name');
-    //     $price = request()->input('price');
-    //     $categorieValue = request()->input('categorie');
-    //     $array = request()->input('row');
-    //     dd($array);
+        $id_user = session()->get('user')['id'];
+        $name = request()->input('name');
+        $price = request()->input('price');
+        $categorieValue = request()->input('categorie');
+        $array = request()->input('row');
+        //dd($array);
         
-    //     $this->repository->update($id, $name, $price, $categorieValue, $id_user, implode(",", $array), $path_image);
+        $this->repository->update($id, $name, $price, $categorieValue, $id_user, implode("|", $array), $path_image);
 
-    //     return redirect("/dashboard/$id_user");
-    // }
+        return redirect("/dashboard/$id_user");
+    }
 
     public function showRemove($id)
     {

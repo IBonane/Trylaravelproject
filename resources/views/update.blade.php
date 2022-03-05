@@ -26,6 +26,21 @@
             </select>
             <br><br>
 
+            <div class="table-responsive">
+                <table id="contenuAjout">
+                    <tr id="name1">
+                        <td><input type="text" name="row[]" value="{{$etapes[0]}}"></td>
+                        <td><button type="button" name="plus" id="plus">+</button></td>
+                    </tr>
+                    @for ($i = 1; $i < count($etapes); $i++)
+                        <tr id="name{{$i+1}}">
+                            <td><input type="text" name="row[]" value="{{$etapes[$i]}}"></td>
+                            <td><button type="button" name="moins" id="{{$i+1}}" class="moins">X</button></td>
+                        </tr>
+                    @endfor
+                </table>
+            </div>
+
             {{-- </div>
                 <div id="ajout">
                     @for ($i = 0; $i < count($etapes); $i++)
