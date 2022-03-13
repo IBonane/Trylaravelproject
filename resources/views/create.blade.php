@@ -18,14 +18,27 @@
             <input type="text" placeholder="Prix.." name="price" required>
             <br><br>
 
+            <div class="table-responsive">
+                <table id="AjoutPage">
+                    <tr id="typePage1">
+                        <td><input type="text" name="typePages[]"/></td>
+                        <td><select name="typePageOption[]" id="typePageOption">Type de page
+                            @foreach ($typePages as $typePage)
+                                <option value="{{$typePage->nameType}}">{{$typePage->nameType}}</option>
+                            @endforeach
+                        </select></td>
+                        <td><button type="button" name="Ajoutplus" id="Ajoutplus">+</button></td>
+                        <br><br>
+                    </tr>
+                </table>
+            </div>
+
             <select name="categorie" id="categorie">Categorie
             @foreach ($categories as $categorie)
                 <option value="{{$categorie->nameCat}}">{{$categorie->nameCat}}</option>
             @endforeach
             </select>
             <br><br>
-
-            <div>
 
             <div class="table-responsive">
                 <table id="contenuAjout">

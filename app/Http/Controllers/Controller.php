@@ -201,10 +201,11 @@ class Controller extends BaseController
     {
         $article = $this->repository->getArticleById($id);
         $etapes = explode( '|', $article[0]->etape_desc);
+        $Pages = $this->repository->getArticleAndPagesById($id);
 
         //dd($article[0]->etape_desc);
 
-        return view('detail_article', ['etapes'=>$etapes])->with('article', $article);
+        return view('detail_article', ['etapes'=>$etapes, 'Pages'=>$Pages])->with('article', $article);
     }
 
     public function downloadArticle($id)
@@ -231,7 +232,8 @@ class Controller extends BaseController
     public function createview()
     {
         $categories = $this->repository->getArticleCategories();
-        return view('create')->with('categories', $categories);
+        $typePages = $this->repository->getPagesType();
+        return view('create', ['typePages'=>$typePages])->with('categories', $categories);
     }
 
     public function create()
@@ -254,12 +256,20 @@ class Controller extends BaseController
         $name = request()->input('name');
         $price = request()->input('price');
         $array = request()->input('row');
+        $arrayPages = request()->input('typePages');
+        $arrayTypePages = request()->input('typePageOption');
 
-        //dd($array);
+
+
+        //dd($array,'\n',$arrayPages,'\n',$arrayTypePages);
+        $idPage = $this->repository->addPage($arrayPages[0], $arrayTypePages[0]);
 
         $categorieValue = request()->input('categorie');
         // explode( ',', $array )
-        $this->repository->addArticle($name, $price, $categorieValue, $id_user, implode("|", $array), $path_image);
+        $idArticle = $this->repository->addArticle($name, $price, $categorieValue, $id_user, implode("|", $array), $path_image);
+
+        //add in Articles_pages
+        $this->repository->addArticlePage($idPage, $idArticle);
         
         return redirect("/dashboard/$id_user");
     }
@@ -268,7 +278,7 @@ class Controller extends BaseController
     {
         $articleFind = $this->repository->getArticleById($id);
 
-        $etapes = explode( ',', $articleFind[0]->etape_desc);
+        $etapes = explode( '|', $articleFind[0]->etape_desc);
         
         $categories = $this->repository->getArticleCategories();
 
@@ -282,11 +292,19 @@ class Controller extends BaseController
             return redirect()->route('login');
         }
 
-          //images
-        //create unique filename image
-        $filename = time().'.'.request()->image_article->extension();
-        //put image into storage folder and get path
-        $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+        //images
+
+        //get old path image
+        $articleFind = $this->repository->getArticleById($id);
+        $path_image = $articleFind[0]->path_image;
+          
+        //create unique filename image and add new path image if is posible
+        if (request()->image_article != null)
+        {
+            $filename = time().'.'.request()->image_article->extension();
+            //put image into storage folder and get path
+            $path_image = request()->file('image_article')->storeAs('articlesImages', $filename, 'public');
+        }
 
         $id_user = session()->get('user')['id'];
         $name = request()->input('name');

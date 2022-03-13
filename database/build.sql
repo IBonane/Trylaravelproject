@@ -1,7 +1,10 @@
-DROP TABLE IF EXISTS Etapes;
+DROP TABLE IF EXISTS Articles_pages;
 DROP TABLE IF EXISTS Articles;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Categories;
+DROP TABLE IF EXISTS pages;
+DROP TABLE IF EXISTS Type_pages;
+
 
 CREATE TABLE Users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,6 +20,17 @@ CREATE TABLE Categories(
     nameCat VARCHAR(255) PRIMARY KEY
 );
 
+CREATE TABLE Type_pages(
+    nameType VARCHAR(255) PRIMARY KEY
+);
+
+CREATE TABLE Pages(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    namePage VARCHAR(255) NOT NULL,
+    id_type VARCHAR(255) NOT NULL,
+    FOREIGN KEY(id_type) REFERENCES Type_pages(nameType)
+);
+
 CREATE TABLE Articles(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -27,6 +41,14 @@ CREATE TABLE Articles(
     path_image VARCHAR(255),
     FOREIGN KEY(id_cat) REFERENCES Categories(nameCat),
     FOREIGN KEY(id_user) REFERENCES Users(id)
+);
+
+CREATE TABLE Articles_pages(
+    id_page INTEGER(15) NOT NULL,
+    id_article INTEGER(15) NOT NULL,
+    PRIMARY KEY(id_page, id_article),
+    FOREIGN KEY(id_page) REFERENCES Pages(id),
+    FOREIGN KEY(id_article) REFERENCES Articles(id)
 );
 
 -- CREATE TABLE Etapes(
@@ -41,4 +63,9 @@ INSERT INTO Categories(nameCat)
             ("Media"),
             ("Press"),
             ("Internet");
-    
+
+INSERT INTO Type_pages(nameType)
+    VALUES
+            ("A4"),
+            ("A5"),
+            ("A6");

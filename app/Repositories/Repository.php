@@ -47,6 +47,14 @@ class Repository
         return ['id'=>$rowUser->id, 'email'=>$rowUser->email];
     }
 
+    function getUserById(int $id): array
+    {
+        return DB::table('users')
+                        ->where('id', $id)
+                        ->get()
+                        ->toArray();
+    }
+
     function confirmationUser($email, $password, $token)
     {
         $rows = DB::table('users')
@@ -145,30 +153,36 @@ class Repository
                         ->delete();
     }
 
-    //Create articles description 
-    // function addEtape(int $id_article, array $etape_desc): int
-    // {
+    //Article categories
+    function getPagesType(): array
+    {
+        return DB::table('Type_pages')
+                    ->get()
+                    ->toArray();
+    }
 
-    //     return DB::table('Etapes')
-    //                     ->insertGetId(['id_article'=>$id_article, 
-    //                                     'etape_desc'=>$etape_desc]);   
-    // }
+    //Create articles pages
+    function addPage($namePage, $id_type): int 
+    {
+        return DB::table('Pages')
+                        ->insertGetId(['namePage'=>$namePage,
+                                       'id_type'=>$id_type]);
+    }  
+    
+    function addArticlePage($id_page, $id_article): void
+    {
+        DB::table('Articles_pages')
+                        ->insert(['id_page'=>$id_page, 'id_article'=>$id_article]);
+    }
 
-    // function getEtapesById($id_article): array
-    // {
-    //     return DB::table('Etapes')
-    //                     ->where('id_article', $id_article) 
-    //                     ->orderBy('id')
-    //                     ->get()
-    //                     ->toArray();   
-    // }    
-
-    // function updateEtapes($id, $id_article, $etape_desc): void 
-    // {
-    //     DB::table('Etapes')
-    //                     ->where('id', $id)
-    //                     ->where('id_article', $id_article)
-    //                     ->update(['name'=>$name, 'price'=>$price, 'id_cat'=>$id_cat, 'path_image'=>$path_image]);
-    // }                                                                                                                       
+    function getArticleAndPagesById($id): array
+    {       
+        return DB::table('Pages')
+                        ->join('Articles_pages', 'Pages.id', 'id_page')
+                        ->join('Articles', 'id_article', 'Articles.id')
+                        ->where('Pages.id', $id)
+                        ->get('Pages.*')
+                        ->toArray();
+    }
  
 }
