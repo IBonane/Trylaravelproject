@@ -42,16 +42,12 @@
         </form>
     </div>
     @foreach ($categories as $categorie)
-    <div>
+        
         <h1>{{$categorie->nameCat}}</h1>
         @foreach ($articles as $article)
-            @if ($categorie->nameCat ==  $article->id_cat)
-            <h3>
-                {{ $article->id }}- {{ $article->name }} :  {{ $article->price }} $ 
-                <a href = '/article/{{$article->id}}' style="color:orange">Detail</a>                                     
-            </h3>  
+            @if ($categorie->nameCat ==  $article['id_cat'])
+            <livewire:article :article="$article"/> 
             @endif
         @endforeach
-    </div>
     @endforeach
 @endsection

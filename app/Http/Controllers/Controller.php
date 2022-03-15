@@ -17,13 +17,19 @@ use Illuminate\Support\Facades\Mail;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+use Illuminate\Support\Facades\DB;
+
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    /*----------------------Error d'affichage d'une seule valeur des input c'est : 
-    dans views on doit mettre : <input type="text" name="row[]"/> et dans controller : request()->input('row')--------------------------------------------------------*/
+    /*----------------------
+    1 - Error d'affichage d'une seule valeur des input c'est : 
+    dans views on doit mettre : <input type="text" name="row[]"/> et dans controller : request()->input('row')
+    
+    2- convert object to array
+        $articles =  json_decode(json_encode($articles), true);--------------------------------------------------------*/
 
     public function __construct(Repository $repository)
     {
@@ -34,8 +40,23 @@ class Controller extends BaseController
     {
         $articles = $this->repository->getArticles();
         $categories = $this->repository->getArticleCategories();
+
+       //convert object to array
+        $articles =  json_decode(json_encode($articles), true);
+        // var_dump($articles);
+        $rows=[];
+        try{
+            $rows = DB::table('Favoris')
+                            ->where('id_user_f', $user['id'])
+                            ->where('id_article_f', $articleadd)
+                            ->get(); $rows =  json_decode(json_encode($rows), true);
+        }
+        catch (Exception $e) { $rows=[];}
+
+    
+            
         
-       return view('home', ['articles'=>$articles])->with('categories', $categories);
+       return view('home', ['articles'=>$articles, 'rows'=>$rows])->with('categories', $categories);
     }
 
     public function showCreateUser()

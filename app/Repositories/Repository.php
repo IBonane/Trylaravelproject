@@ -184,5 +184,31 @@ class Repository
                         ->get('Pages.*')
                         ->toArray();
     }
+
+    //likes
+    function likes($id_user_f, $id_article_f): void 
+    {
+        DB::table('Favoris')
+            ->insert(['id_user_f'=>$id_user_f, 'id_article_f'=>$id_article_f]);
+    }
+
+    //likes
+    function getLikes($id_user_f): array 
+    {
+       return DB::table('Favoris')
+            ->where('id_user_f', $id_user_f)
+            ->join('Articles', 'id_article_f', 'Articles.id')
+            ->select('Articles.name','Articles.price')
+            ->get()
+            ->toArray();
+    }
+
+    function removeLikes($id_user_f, $id_article_f): void 
+    {
+        DB::table('Favoris')
+            ->where('id_user_f', $id_user_f) 
+            ->where('id_user_f', $id_article_f)
+            ->delete();
+    }
  
 }

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Favoris;
 DROP TABLE IF EXISTS Articles_pages;
 DROP TABLE IF EXISTS Articles;
 DROP TABLE IF EXISTS Users;
@@ -49,6 +50,14 @@ CREATE TABLE Articles_pages(
     PRIMARY KEY(id_page, id_article),
     FOREIGN KEY(id_page) REFERENCES Pages(id),
     FOREIGN KEY(id_article) REFERENCES Articles(id)
+);
+
+CREATE TABLE Favoris(
+    id_user_f INTEGER(15) NOT NULL,
+    id_article_f INTEGER(15) NOT NULL,
+    PRIMARY KEY(id_user_f, id_article_f),
+    FOREIGN KEY(id_user_f) REFERENCES Users(id),
+    FOREIGN KEY(id_article_f) REFERENCES Articles(id)
 );
 
 -- CREATE TABLE Etapes(

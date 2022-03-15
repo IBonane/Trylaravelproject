@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @livewireStyles
     <title>@yield('title')</title>
 </head>
 <body style="padding: 0; margin: 0; box-sizing: border-box;">
@@ -21,5 +22,7 @@
     src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-620d51228f769764">
     </script>
     @yield('script')
+
+    @livewireScripts
 </body>
 </html>
