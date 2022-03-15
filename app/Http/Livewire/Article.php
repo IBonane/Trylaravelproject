@@ -6,7 +6,10 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use Illuminate\Support\Facades\DB;
-
+/*---------------
+pour liker sans erreur, dans : vendor/livewire/livewire/src/HydrationMiddleware/HydratePublicProperties.php 
+mettre la ligne 134 en commentaire (tout le 'else')
+--------------*/
 class Article extends Component
 {   
     public array $article;
